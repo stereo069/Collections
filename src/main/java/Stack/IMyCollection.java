@@ -35,5 +35,10 @@ public interface IMyCollection<T> {
      */
     boolean isEmpty();
 
+    /*
+
+     */
+    Integer size();
+
 
 }
