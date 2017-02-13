@@ -1,5 +1,6 @@
 package Stack;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -11,10 +12,12 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
     Integer size;
     Iterator<T> iterator;
     boolean isIterator;
+    boolean isModification;
 
     public MyStack(){
         size = new Integer(0);
         isIterator = false;  // для тестов
+        isModification = false;
     }
 
 
@@ -31,13 +34,11 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
         {
             return null;
         }else{
+            isModification = true;
             size--;
             T locValue = head.getValue();
             head = head.getPrevNode();
-            if(isIterator) {
 
-                iterator.next(); // я могу не првоерять на сущетсвоание т.е выше есть проверка на сущестование head
-            }
             return locValue;
 
         }
@@ -51,13 +52,23 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
     */
     @Override
     public Iterator<T> iterator() {
-
+        isModification = false;
+        isIterator = false;
          Iterator<T> Lociterator = new Iterator<T>() {
 
                 private MyNode<T> currentNode;
 
                 @Override
                 public boolean hasNext() {
+                    if(isModification)
+                    {
+                        isModification = false;
+                        isIterator = false;
+                        iterator = null;
+                        currentNode = null;
+                        throw new ConcurrentModificationException();
+                    }
+
 
                             if(!isIterator){
                                 if(head!= null)
@@ -68,7 +79,7 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
                                     return false;
                                 }
                             }
-                    if(currentNode == null) {
+                    if(currentNode == null ) {
                         return false;
                     }
                     return ( currentNode.getPrevNode() == null ? false : true);
@@ -76,6 +87,16 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
 
                 @Override
                 public T next() {
+
+                    if(isModification)
+                    {
+                        isModification = false;
+                        isIterator = false;
+                        iterator = null;
+                        currentNode = null;
+                        throw new ConcurrentModificationException();
+                    }
+
                     if(!isIterator){
                         currentNode = head;
                         isIterator = true;
@@ -87,6 +108,10 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
                     }
 
                     currentNode = currentNode.getPrevNode();
+                    if(currentNode == null)
+                    {
+                        throw new NoSuchElementException();
+                    }
                     T localValue = currentNode.getValue();
 
                     return localValue;
@@ -103,7 +128,9 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
                     MyNode<T> localNode = getPreviousNodeByNode(currentNode);
                     if(localNode == null){
                         if(head == currentNode){
-                            pop();
+                            head = currentNode!= null ? currentNode.getPrevNode() : null;
+                            currentNode = head;
+                            size--;
                             return;
                         }
 

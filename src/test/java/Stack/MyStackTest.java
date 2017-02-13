@@ -2,7 +2,9 @@ package Stack;
 
 import org.junit.Before;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.Stack;
 
 import static org.junit.Assert.*;
 
@@ -53,6 +55,7 @@ public class MyStackTest {
         }
 
         assertTrue("Empty Stack error",!iterator.hasNext());
+        assertEquals("POP",stack.pop(),testArray[size-1]);
 
     }
 
@@ -61,11 +64,17 @@ public class MyStackTest {
 
         Iterator<Integer> iterator = stack.iterator();
         stack.clear();
-
+        boolean expected2 = false;
         Integer expected = stack.pop();
         assertEquals("Stack is not empty",expected,null);
-        assertEquals("Iterator is not null",iterator.hasNext(),false);
+        try{
+            iterator.next();
+        }catch (ConcurrentModificationException e)
+        {
+            expected2 = true;
 
+        }
+        assertTrue(expected2);
     }
 
     @org.junit.Test
@@ -187,6 +196,18 @@ public class MyStackTest {
 
 
     }
+    @org.junit.Test
+    public void Size()throws  Exception {
 
+        stack.pop();
+        Integer actual = size-1;
+        assertEquals("POP",stack.size(),actual);
+        Iterator<Integer> iterator = stack.iterator();
+        iterator.next();
+        iterator.remove();
+        actual = size-2;
+        assertEquals("Iterator",stack.size(),actual);
+
+    }
 
 }
