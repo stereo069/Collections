@@ -12,9 +12,11 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
     MyNode<T> head;
     Integer size;
     Iterator<T> iterator;
+    boolean isIterator;
 
     public MyStack(){
         size = new Integer(0);
+        isIterator = false;  // для тестов
     }
 
 
@@ -34,7 +36,9 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
             size--;
             T locValue = head.getValue();
             head = head.getPrevNode();
+            if(isIterator) {
                 iterator.next(); // я могу не првоерять на сущетсвоание т.е выше есть проверка на сущестование head
+            }
             return locValue;
 
         }
@@ -48,6 +52,7 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
     */
     @Override
     public Iterator<T> iterator() {
+        isIterator = true;
         iterator = new Iterator<T>() {
 
             private MyNode<T> currentNode = head;
@@ -74,12 +79,39 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
 
     @Override
     public boolean search(T key) {
+
+        iterator = iterator();
+            while(iterator.hasNext()){
+                if(iterator.next() == key)
+                {
+                    iterator = iterator();
+                    return true;
+                }
+            }
+
+        iterator = iterator();
         return false;
     }
 
     @Override
     public boolean remove(T key) {
-        return false;
+
+        MyNode<T> localNode = this.getPreviousNodeByKey(key);
+        if(localNode == null){
+            if(head.getValue() == key){
+                this.pop();
+                return true;
+            }
+            return false;
+        }
+        MyNode<T>  deletedNode = localNode.getPrevNode();
+        if(deletedNode.getPrevNode()==null)
+        {
+            localNode.setPrevNode(null);
+        }else {
+            localNode.setPrevNode(deletedNode.getPrevNode());
+        }
+        return true;
     }
 
     @Override
@@ -103,5 +135,21 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
     @Override
     public Integer size() {
         return size;
+    }
+
+
+    public MyNode<T> getPreviousNodeByKey(T key){
+
+        MyNode<T> localHead = new MyNode<T>(head.getValue(),head.getPrevNode());
+        MyNode<T> previousNode = null;
+        while(localHead != null){
+            if(localHead.getValue() == key && previousNode != null)
+            {
+                return previousNode;
+            }
+            previousNode = localHead;
+            localHead = localHead.getPrevNode();
+        }
+        return  null;
     }
 }

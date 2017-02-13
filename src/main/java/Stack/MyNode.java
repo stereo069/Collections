@@ -23,4 +23,8 @@ public class MyNode<T> {
         return prevNode;
     }
 
+    public void setPrevNode(MyNode<T> prevNode){
+        this.prevNode = prevNode;
+    }
+
 }
