@@ -30,6 +30,7 @@ public class MyStackTest {
 
         Integer expected=0;
         Integer actual = 0;
+        Iterator<Integer> iterator = stack.iterator();
         for(int i=size-1;i>=0;i--) {
             expected = stack.pop();
             actual = testArray[i];
@@ -110,5 +111,84 @@ public class MyStackTest {
 
 
     }
+
+    @org.junit.Test
+    public void isEmpty()throws  Exception {
+
+        assertEquals("Error filled stack",stack.isEmpty(),false);
+
+        while (stack.pop()!=null){
+
+        }
+
+        assertEquals("Error empty stack",stack.isEmpty(),true);
+    }
+
+
+    @org.junit.Test
+    public void size()throws  Exception {
+
+        for(Integer i =size-1;i>=0;i--){
+            stack.pop();
+            assertEquals("Error size stack",stack.size(),i);
+        }
+
+    }
+
+    @org.junit.Test
+    public void removeFromIterator()throws  Exception {
+
+        boolean expectedException = false;
+        boolean expectedFirst = true;
+        boolean expectedMiddle = true;
+        boolean expectedLast = true;
+        Iterator<Integer> iterator = stack.iterator();
+        try {
+            iterator.remove();
+        }catch (IllegalStateException e){
+            expectedException  = true;
+        }
+        iterator.next();
+
+        try {
+            iterator.remove();
+            if(stack.search(testArray[size-1])){
+                expectedFirst = false;
+            }
+        }catch (IllegalStateException e){
+            expectedFirst = false;
+        }
+        try {
+            iterator.next();
+            iterator.next();
+            iterator.remove();
+            if(stack.search(testArray[size-4])){
+                expectedMiddle = false;
+            }
+        }catch (IllegalStateException e){
+            expectedMiddle = false;
+        }
+
+        try {
+            while (iterator.hasNext()){
+                iterator.next();
+            }
+            iterator.remove();
+            if(stack.search(testArray[0])){
+                expectedLast = false;
+            }
+        }catch (IllegalStateException e){
+            expectedLast = false;
+        }
+
+
+        assertEquals("Error exception",expectedException ,true);
+        assertEquals("Error first remove",expectedFirst,true);
+        assertEquals("Error middle remove", expectedMiddle,true);
+        assertEquals("Error last remove",expectedLast,true);
+
+
+    }
+
 
 }

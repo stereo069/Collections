@@ -1,6 +1,7 @@
 package Stack;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by diasonov on 09.02.2017.
@@ -37,6 +38,7 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
             T locValue = head.getValue();
             head = head.getPrevNode();
             if(isIterator) {
+
                 iterator.next(); // я могу не првоерять на сущетсвоание т.е выше есть проверка на сущестование head
             }
             return locValue;
@@ -52,45 +54,93 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
     */
     @Override
     public Iterator<T> iterator() {
-        isIterator = true;
-        iterator = new Iterator<T>() {
 
-            private MyNode<T> currentNode = head;
+         Iterator<T> Lociterator = new Iterator<T>() {
 
-            @Override
-            public boolean hasNext() {
-                return (currentNode == null ? false : true);
-            }
+                private MyNode<T> currentNode;
 
-            @Override
-            public T next() {
-                T localValue = currentNode.getValue();
-                currentNode = currentNode.getPrevNode();
-                return (localValue);
-            }
+                @Override
+                public boolean hasNext() {
 
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException();
-            }
-        };
-        return iterator;
+                            if(!isIterator){
+                                if(head!= null)
+                                {
+                                    return true;
+                                }else
+                                {
+                                    return false;
+                                }
+                            }
+                    if(currentNode == null) {
+                        return false;
+                    }
+                    return ( currentNode.getPrevNode() == null ? false : true);
+                }
+
+                @Override
+                public T next() {
+                    if(!isIterator){
+                        currentNode = head;
+                        isIterator = true;
+                        return currentNode != null ? currentNode.getValue() : null;
+                    }
+                    if(currentNode == null)
+                    {
+                        throw new NoSuchElementException();
+                    }
+
+                    currentNode = currentNode.getPrevNode();
+                    T localValue = currentNode.getValue();
+
+                    return localValue;
+                }
+
+                @Override
+                public void remove() {
+
+                    if(currentNode == null){
+                        throw new IllegalStateException();
+
+                    }
+
+                    MyNode<T> localNode = getPreviousNodeByNode(currentNode);
+                    if(localNode == null){
+                        if(head == currentNode){
+                            pop();
+                            return;
+                        }
+
+                    }
+                    if(currentNode.getPrevNode()==null)
+                    {
+                        localNode.setPrevNode(null);
+                    }else {
+                        localNode.setPrevNode(currentNode.getPrevNode());
+                    }
+                    size--;
+
+                }
+
+            };
+        if(iterator==null){
+            iterator = Lociterator;
+        }
+        return Lociterator;
     }
 
     @Override
     public boolean search(T key) {
 
-        iterator = iterator();
-            while(iterator.hasNext()){
-                if(iterator.next() == key)
-                {
-                    iterator = iterator();
-                    return true;
-                }
-            }
+        MyNode<T> localHead = head;
 
-        iterator = iterator();
+        while(localHead != null){
+            if(localHead.getValue() == key){
+                return true;
+            }
+            localHead = localHead.getPrevNode();
+        }
         return false;
+
     }
 
     @Override
@@ -111,6 +161,7 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
         }else {
             localNode.setPrevNode(deletedNode.getPrevNode());
         }
+        size--;
         return true;
     }
 
@@ -140,7 +191,7 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
 
     public MyNode<T> getPreviousNodeByKey(T key){
 
-        MyNode<T> localHead = new MyNode<T>(head.getValue(),head.getPrevNode());
+        MyNode<T> localHead = head;
         MyNode<T> previousNode = null;
         while(localHead != null){
             if(localHead.getValue() == key && previousNode != null)
@@ -152,4 +203,21 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
         }
         return  null;
     }
+
+
+    public MyNode<T> getPreviousNodeByNode(MyNode<T> key){
+
+        MyNode<T> localHead = head;
+        MyNode<T> previousNode = null;
+        while(localHead != null){
+            if(localHead == key && previousNode != null)
+            {
+                return previousNode;
+            }
+            previousNode = localHead;
+            localHead = localHead.getPrevNode();
+        }
+        return  null;
+    }
+
 }
