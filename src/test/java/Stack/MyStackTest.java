@@ -6,9 +6,7 @@ import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by diasonov on 09.02.2017.
- */
+
 public class MyStackTest {
 
     Integer []testArray = {10,21,221,43,0,42};

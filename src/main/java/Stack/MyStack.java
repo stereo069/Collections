@@ -3,9 +3,6 @@ package Stack;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/**
- * Created by diasonov on 09.02.2017.
- */
 
 
 public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
