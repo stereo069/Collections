@@ -5,7 +5,7 @@ public class MyNode<T> {
     MyNode prevNode;
     T value;
 
-    MyNode(T value, MyNode prevNode){
+    public MyNode(T value, MyNode prevNode){
 
         this.prevNode = prevNode;
         this.value = value;
