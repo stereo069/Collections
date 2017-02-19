@@ -38,6 +38,7 @@ public class MyQueue<T> implements IMyQueue<T> , IMyCollection<T>, Iterable<T> {
             size++;
             return;
         }else {
+            size++;
            MyNode<T> locNode = new MyNode<T>(value,null);
             tail.setPrevNode(locNode);
             tail = locNode;
@@ -52,6 +53,8 @@ public class MyQueue<T> implements IMyQueue<T> , IMyCollection<T>, Iterable<T> {
         if(head == null){
             return null;
         }
+        isModification = true;
+        size--;
         T returnValue = head.getValue();
         head = head.getPrevNode();
         return returnValue;
