@@ -1,23 +1,18 @@
 package Queue;
 
-import Stack.MyNode;
-import Queue.MyQueue;
+import Node.MyNode;
 import org.junit.Before;
-import org.junit.Test;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by diasonov on 19.02.2017.
- */
 public class MyQueueTest {
 
-    Integer []testArray = {10,21,221,43,0,42};
-    MyQueue<Integer> Queue;
-    int size = 6;
+    private Integer []testArray = {10,21,221,43,0,42};
+    private MyQueue<Integer> Queue;
+    private int size = 6;
 
     @Before
     public void init(){

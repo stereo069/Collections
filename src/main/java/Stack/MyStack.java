@@ -12,11 +12,11 @@ import java.util.NoSuchElementException;
 
 public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
 
-    MyNode<T> head;
-    Integer size;
-    Iterator<T> iterator;
-    boolean isIterator;
-    boolean isModification;
+    private MyNode<T> head;
+    private Integer size;
+    private Iterator<T> iterator;
+    private boolean isIterator;
+    private boolean isModification;
 
     public MyStack(){
         size = new Integer(0);

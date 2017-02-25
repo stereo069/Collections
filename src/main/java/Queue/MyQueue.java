@@ -8,17 +8,14 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/**
- * Created by diasonov on 17.02.2017.
- */
 public class MyQueue<T> implements IMyQueue<T>, IMyCollection<T>, Iterable<T> {
 
-    MyNode<T> head;
-    MyNode<T> tail;
-    Integer size;
-    Iterator<T> iterator;
-    boolean isIterator;
-    boolean isModification;
+    private MyNode<T> head;
+    private MyNode<T> tail;
+    private Integer size;
+    private Iterator<T> iterator;
+    private boolean isIterator;
+    private boolean isModification;
 
     public MyQueue(){
         head = null;

@@ -5,15 +5,13 @@ import Node.MyListNode;
 
 import java.util.ListIterator;
 
-/**
- * Created by diasonov on 25.02.2017.
- */
+
 public class LinkedList<E> implements IMyLinkedList<E> {
 
-    MyListNode<E> head;
-    MyListNode<E> tail;
-    int size;
-    boolean isMofifcation;
+    private MyListNode<E> head;
+    private MyListNode<E> tail;
+    private int size;
+    private boolean isMofifcation;
 
     @Override
     public void add(int index, E element) {

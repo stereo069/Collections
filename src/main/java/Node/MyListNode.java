@@ -1,13 +1,11 @@
 package Node;
 
-/**
- * Created by diasonov on 25.02.2017.
- */
+
 public class MyListNode<T> {
 
-    MyListNode prevNode;
-    MyListNode nextNode;
-    T value;
+   private MyListNode prevNode;
+   private MyListNode nextNode;
+   private T value;
 
     public MyListNode(T value, MyListNode prevNode, MyListNode nextNode){
 

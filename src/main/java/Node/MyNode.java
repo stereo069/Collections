@@ -2,8 +2,8 @@ package Node;
 
 public class MyNode<T> {
 
-    MyNode prevNode;
-    T value;
+    private MyNode prevNode;
+    private T value;
 
     public MyNode(T value, MyNode prevNode){
 
