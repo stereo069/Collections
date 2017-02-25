@@ -1,5 +1,4 @@
-package Stack;
-
+package Interface;
 
 import java.util.Iterator;
 
@@ -12,13 +11,6 @@ public interface IMyCollection<T> {
      @return: boolean
      */
     boolean search(T key);
-
-    /*
-     Remove by key. Return true if was deleted at least one node.
-     @param: T key
-     @return: boolean
-     */
-    boolean remove(T key);
 
     /*
       Remove all nodes;

@@ -1,7 +1,8 @@
 package Queue;
 
-import Stack.IMyCollection;
-import Stack.MyNode;
+import Interface.IMyCollection;
+import Interface.IMyQueue;
+import Node.MyNode;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -10,7 +11,7 @@ import java.util.NoSuchElementException;
 /**
  * Created by diasonov on 17.02.2017.
  */
-public class MyQueue<T> implements IMyQueue<T> , IMyCollection<T>, Iterable<T> {
+public class MyQueue<T> implements IMyQueue<T>, IMyCollection<T>, Iterable<T> {
 
     MyNode<T> head;
     MyNode<T> tail;
@@ -183,27 +184,6 @@ public class MyQueue<T> implements IMyQueue<T> , IMyCollection<T>, Iterable<T> {
 
     }
 
-    @Override
-    public boolean remove(T key) {
-
-        MyNode<T> localNode = this.getPreviousNodeByKey(key);
-        if(localNode == null){
-            if(head.getValue() == key){
-                this.poll();
-                return true;
-            }
-            return false;
-        }
-        MyNode<T>  deletedNode = localNode.getPrevNode();
-        if(deletedNode.getPrevNode()==null)
-        {
-            localNode.setPrevNode(null);
-        }else {
-            localNode.setPrevNode(deletedNode.getPrevNode());
-        }
-        size--;
-        return true;
-    }
 
     @Override
     public void clear() {

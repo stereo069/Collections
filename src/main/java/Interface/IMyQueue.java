@@ -1,4 +1,4 @@
-package Queue;
+package Interface;
 
 /**
  * Created by diasonov on 17.02.2017.

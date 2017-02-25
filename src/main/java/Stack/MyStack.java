@@ -1,5 +1,9 @@
 package Stack;
 
+import Interface.IMyCollection;
+import Interface.IMyStack;
+import Node.MyNode;
+
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -167,27 +171,6 @@ public class MyStack<T> implements Iterable<T>, IMyStack<T>, IMyCollection<T> {
 
     }
 
-    @Override
-    public boolean remove(T key) {
-
-        MyNode<T> localNode = this.getPreviousNodeByKey(key);
-        if(localNode == null){
-            if(head.getValue() == key){
-                this.pop();
-                return true;
-            }
-            return false;
-        }
-        MyNode<T>  deletedNode = localNode.getPrevNode();
-        if(deletedNode.getPrevNode()==null)
-        {
-            localNode.setPrevNode(null);
-        }else {
-            localNode.setPrevNode(deletedNode.getPrevNode());
-        }
-        size--;
-        return true;
-    }
 
     @Override
     public void clear() {

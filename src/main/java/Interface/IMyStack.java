@@ -1,4 +1,4 @@
-package Stack;
+package Interface;
 
 
 public interface IMyStack<T>{
