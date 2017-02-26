@@ -4,6 +4,8 @@ import Interface.IMyLinkedList;
 import Node.MyListNode;
 
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
+
 import Interface.IMyCollection;
 
 
@@ -21,7 +23,7 @@ public class MyLinkedList<E> implements IMyLinkedList<E>, IMyCollection<E> {
         }
 
         MyListNode<E> node = head;
-        for(int i=1;i<index;i++){
+        for(int i=0;i<index;i++){
             node = node.getNextNode();
         }
         size++;
@@ -72,22 +74,66 @@ public class MyLinkedList<E> implements IMyLinkedList<E>, IMyCollection<E> {
     @Override
     public void removeFirst() {
 
+        if(head==null){
+            throw new NoSuchElementException();
+        }
+        size--;
+        isMofifcation = true;
+        head = head.getNextNode();
+        head.setPrevNode(null);
+
     }
 
     @Override
     public void removeLast() {
 
+        if(tail==null){
+            throw new NoSuchElementException();
+        }
+        size--;
+        isMofifcation = true;
+        tail = tail.getPrevNode();
+        tail.setNextNode(null);
+
     }
 
     @Override
     public E remove(int index) {
-        return null;
+
+        if(index<0 || index >=size){
+            throw new IndexOutOfBoundsException();
+        }
+        MyListNode<E> node = head;
+        for(int i=0;i<index;i++){
+            node = node.getNextNode();
+        }
+        E returnElement = node.getValue();
+
+        if(index == 0){
+            removeFirst();
+            return returnElement;
+        }
+        if(index == size-1){
+            removeLast();
+            return returnElement;
+        }
+
+        if(index>0 && index != size-1){
+            size--;
+            isMofifcation = true;
+            node.getPrevNode().setNextNode(node.getNextNode());
+            node.getNextNode().setPrevNode(node.getPrevNode());
+
+        }
+
+        return returnElement;
+
     }
 
     @Override
     public E getFirst() {
         if(head == null){
-            return null;
+            throw new NoSuchElementException();
         }
         return head.getValue();
     }
@@ -96,7 +142,7 @@ public class MyLinkedList<E> implements IMyLinkedList<E>, IMyCollection<E> {
     public E getLast() {
         if(tail == null)
         {
-            return null;
+            throw new NoSuchElementException();
         }
         return tail.getValue();
     }
@@ -107,7 +153,7 @@ public class MyLinkedList<E> implements IMyLinkedList<E>, IMyCollection<E> {
             throw new IndexOutOfBoundsException();
         }
         MyListNode<E> node = head;
-        for(int i=1;i<index;i++){
+        for(int i=0;i<index;i++){
             node = node.getNextNode();
         }
         return node.getValue();
@@ -115,7 +161,15 @@ public class MyLinkedList<E> implements IMyLinkedList<E>, IMyCollection<E> {
 
     @Override
     public int indexOf(Object o) {
-        return 0;
+        MyListNode<E> node = head;
+        for(int i=0;i<size;i++){
+            if(node.getValue() == o){
+                return i;
+            }
+            node = node.getNextNode();
+
+        }
+        return -1;
     }
 
     @Override
@@ -125,21 +179,34 @@ public class MyLinkedList<E> implements IMyLinkedList<E>, IMyCollection<E> {
 
     @Override
     public boolean search(E key) {
+        MyListNode<E> node = head;
+        for(int i=0;i<size;i++){
+            if(node.getValue().equals(key)){
+                return true;
+            }
+            node = node.getNextNode();
+
+        }
         return false;
     }
 
     @Override
     public void clear() {
 
+        head=null;
+        tail = null;
+        isMofifcation = true;
+        size = 0;
+
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0 ? true : false;
     }
 
     @Override
     public Integer size() {
-        return null;
+        return size;
     }
 }
