@@ -3,6 +3,7 @@ import Stack.MyStack;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Random;
 
 
 public class main {
@@ -81,6 +82,11 @@ public class main {
                     stack.clear();
                     }
                     break;
+                case 9: {
+                    System.out.println("        random fill");
+                    RandomFill(stack);
+                }
+                break;
             }
         }while (type != 0);
         return;
@@ -97,6 +103,7 @@ public class main {
         System.out.println("6 is empty");
         System.out.println("7 search");
         System.out.println("8 clear");
+        System.out.println("9 random");
         System.out.println("0 exit");
         int  n ;
         n = in.nextInt();
@@ -104,14 +111,25 @@ public class main {
         return n;
     }
 
-    public static void printStack(MyStack<Integer> stack){
+    public static void printStack(MyStack<Integer> stack) {
         Iterator<Integer> iterator = stack.iterator();
-        if(!iterator.hasNext()){
+        if (!iterator.hasNext()) {
             System.out.println(" ----- Stack is empty");
         }
-        while(iterator.hasNext()){
-            System.out.println("elem stack ------- "+iterator.next());
+        while (iterator.hasNext()) {
+            System.out.println("elem stack ------- " + iterator.next());
+        }
+    }
+
+
+    public static void RandomFill(MyStack<Integer> stack){
+        stack.clear();
+        Random rnd = new Random();
+        Integer size = rnd.nextInt(20);
+        for(int i =0; i<size;i++){
+            stack.push(rnd.nextInt(50));
         }
     }
 
 }
+

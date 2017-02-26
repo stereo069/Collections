@@ -1,5 +1,6 @@
 package Interface;
 
+
 import java.util.Iterator;
 
 public interface IMyCollection<T> {
@@ -11,6 +12,7 @@ public interface IMyCollection<T> {
      @return: boolean
      */
     boolean search(T key);
+
 
     /*
       Remove all nodes;

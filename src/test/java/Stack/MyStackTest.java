@@ -5,15 +5,16 @@ import org.junit.Before;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.Stack;
 
 import static org.junit.Assert.*;
 
 
 public class MyStackTest {
 
-    private Integer []testArray = {10,21,221,43,0,42};
-    private MyStack<Integer> stack;
-    private int size = 6;
+    Integer []testArray = {10,21,221,43,0,42};
+    MyStack<Integer> stack;
+    int size = 6;
 
     @Before
     public void init(){
@@ -28,24 +29,24 @@ public class MyStackTest {
     @org.junit.Test
     public void pop() throws Exception {
 
-        Integer expected;
-        Integer actual;
-        Iterator<Integer> iterator = stack.iterator();
+        Integer expected=0;
+        Integer actual = 0;
         for(int i=size-1;i>=0;i--) {
             expected = stack.pop();
             actual = testArray[i];
             assertEquals(expected, actual);
         }
         expected = stack.pop();
-        assertEquals("Empty Stack error",expected, null);
+        actual = null;
+        assertEquals("Empty Stack error",expected, actual);
     }
 
     @org.junit.Test
     public void iterator() throws  Exception {
 
         Iterator<Integer> iterator = stack.iterator();
-        Integer expected;
-        Integer actual;
+        Integer expected=0;
+        Integer actual = 0;
 
         for(int i=size-1;i>=0;i--) {
             expected = iterator.hasNext() != false ? iterator.next() : null;

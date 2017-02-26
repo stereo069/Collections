@@ -2,10 +2,7 @@ import Queue.MyQueue;
 import Stack.MyStack;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Queue;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by diasonov on 19.02.2017.
@@ -14,6 +11,7 @@ public class main2 {
     public static void main(String[] args) throws IOException {
 
         MyQueue<Integer> Queue = new MyQueue<>();
+
         Scanner in = new Scanner(System.in);
         int type;
 
