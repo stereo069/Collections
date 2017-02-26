@@ -3,6 +3,8 @@ package List;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ConcurrentModificationException;
+import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
@@ -16,7 +18,9 @@ public class MyLinkedListTest {
 
     @Before
     public void init(){
+
         list = new MyLinkedList<>();
+
      for(int i=0;i<size;i++){
          list.addLast(testArray[i]);
      }
@@ -149,6 +153,48 @@ public class MyLinkedListTest {
 
     @Test
     public void listIterator() throws Exception {
+
+        ListIterator<Integer> iterator = list.listIterator(0);
+        int i = 0;
+        while(iterator.hasNext()){
+            Integer expected = iterator.next();
+            assertEquals(expected,testArray[i]);
+            i++;
+        }
+        i = size-1;
+        while(iterator.hasPrevious()){
+            Integer expected = iterator.previous();
+            assertEquals(expected,testArray[i]);
+            i--;
+        }
+
+        iterator = list.listIterator(0);
+
+        iterator.next();
+        iterator.remove();
+
+        assertEquals(list.search(testArray[0]),false);
+
+        while(iterator.hasNext()){
+            iterator.next();
+        }
+        iterator.add(123);
+        assertEquals(list.search(123),true);
+
+        assertEquals(list.getLast(),(Integer)123);
+
+        iterator = list.listIterator(0);
+        iterator.add(123);
+        assertEquals(list.getFirst(),(Integer)123);
+
+        list.removeFirst();
+        try{
+            iterator.next();
+            assertTrue(false);
+        }catch (ConcurrentModificationException e){
+            assertTrue(true);
+        }
+
 
     }
 

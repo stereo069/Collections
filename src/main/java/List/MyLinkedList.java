@@ -155,10 +155,9 @@ public class MyLinkedList<E> implements IMyLinkedList<E>, IMyCollection<E> {
         }
 
         if(index>0 && index != size-1){
-            size--;
-            modCount++;
-            node.getPrevNode().setNextNode(node.getNextNode());
-            node.getNextNode().setPrevNode(node.getPrevNode());
+
+            unlink(node);
+
 
         }
 
