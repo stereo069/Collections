@@ -33,6 +33,14 @@ public class  MyLinkedList<E extends Comparable<E>> implements IMyLinkedList<E>,
                     + size);
     }
 
+    private void checkElementIndex(int index) {
+        if (!isElementIndex(index))
+            throw new IndexOutOfBoundsException();
+    }
+
+    private boolean isElementIndex(int index) {
+        return index >= 0 && index < size;
+    }
 
     private void linkBefore(E element, MyListNode<E> node){
 
@@ -51,7 +59,7 @@ public class  MyLinkedList<E extends Comparable<E>> implements IMyLinkedList<E>,
 
     @Override
     public void add(int index, E element) {
-       checkBoundsInclusive(index);
+        checkElementIndex(index);
 
         if(index < size) {
             MyListNode<E> node = head;
@@ -74,6 +82,11 @@ public class  MyLinkedList<E extends Comparable<E>> implements IMyLinkedList<E>,
         }
 
 
+    }
+
+    @Override
+    public void add(E element) {
+        addLast(element);
     }
 
     @Override
@@ -243,7 +256,7 @@ public class  MyLinkedList<E extends Comparable<E>> implements IMyLinkedList<E>,
     @Override
     public E get(int index) {
 
-        checkBoundsInclusive(index);
+        checkElementIndex(index);
 
         MyListNode<E> node = head;
         for(int i=0;i<index;i++){

@@ -135,6 +135,18 @@ public class MyLinkedListTest {
             assertTrue(true);
         }
 
+        list.clear();
+
+        try{
+            list.get(0);
+            assertTrue(false);
+        }catch (IndexOutOfBoundsException e){
+
+        }
+        catch (NullPointerException e){
+            assertTrue(false);
+        }
+
     }
 
     @Test

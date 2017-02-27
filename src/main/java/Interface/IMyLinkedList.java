@@ -8,6 +8,7 @@ import java.util.ListIterator;
 public interface IMyLinkedList<E extends Comparable<E>> {
 
         void add(int index, E element);
+        void add(E element);
         void addFirst(E value);
         void addLast(E value);
         void removeFirst();

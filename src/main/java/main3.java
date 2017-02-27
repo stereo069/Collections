@@ -4,6 +4,7 @@ import List.MyLinkedList;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -30,34 +31,34 @@ public class main3 {
                 case 1: {
                     System.out.print("value --- ");
                     Integer value = in.nextInt();
-                    list.add(value,0);
+                    list.add(value);
 
 
                 }
                 break;
 
                 case 2 : {
-                    Integer val =  list.getFirst();
-                    if(val == null)
-                    {
+                    Integer val = 0;
+                    try {
+                        val =  list.getFirst();
+                    }catch (NoSuchElementException e){
+                        System.out.println("NoSuchElementException");
                         System.out.println("list is empty");
+                        continue;
+
                     }
-                    System.out.println("poll value - "+val);
+
+
+                    System.out.println("value - "+val);
                 }
                 break;
                 case 3 : {
-                    ListIterator<Integer> iterator = list.listIterator(0);
-                    if(!iterator.hasNext()){
-                        System.out.println(" ----- list is empty");
-                    }
-                    while(iterator.hasNext()){
-                        System.out.println(" delete - " + iterator.next() +"?");
-                        System.out.println("Y/N");
-                        String result = in.next();
-                        if(result.compareTo("Y")==0){
-                            iterator.remove();
-                            break;
-                        }
+                    System.out.print("index - ");
+                   Integer index = in.nextInt();
+                    try{
+                        System.out.println("value - "+list.get(index));
+                    }catch (IndexOutOfBoundsException e){
+                        System.out.println("IndexOutOfBoundsException");
                     }
 
                 }
@@ -67,7 +68,13 @@ public class main3 {
                     break;
 
                 case 4: {
-                    System.out.println("size ---- "+list.size());
+                    System.out.print("index - ");
+                    Integer index = in.nextInt();
+                    try{
+                        System.out.println("remove value - "+list.remove(index));
+                    }catch (IndexOutOfBoundsException e){
+                        System.out.println("IndexOutOfBoundsException");
+                    }
                 }break;
 
 
@@ -96,11 +103,21 @@ public class main3 {
 
                 case 9: {
                     System.out.println("        Random add ");
-                    //RandomAdd(list);
-                }case 11: {
+                    RandomAdd(list);
+                }
+                break;
+                case 10: {
+                    System.out.println("        sort");
+                    list.sort();
+                }break;
+                case 11: {
                     System.out.println("        Read file ");
                     ReadFile("C:/List/1.txt",list);
                 }
+                case 12: {
+                System.out.println("        Write to file ");
+                WriteFile("C:/List/1.txt",list);
+            }
                 break;
             }
         }while (type != 0);
@@ -111,11 +128,11 @@ public class main3 {
     public static int menu(){
         Scanner in = new Scanner(System.in);
         System.out.println("1 - add");
-        System.out.println("2 - addFirst");
-        System.out.println("3 - addLast");
+        System.out.println("2 - getFirst");
+        System.out.println("3 - get");
         System.out.println("4 - remove");
         System.out.println("5 - print");
-        System.out.println("6 - removeLast");
+        System.out.println("6 - isEmpty");
         System.out.println("7 - search");
         System.out.println("8 - clear");
         System.out.println("9 - random add");
@@ -145,7 +162,7 @@ public class main3 {
         Integer size = rnd.nextInt(10);
 
         for(int i=0;i<size;i++){
-            list.addLast(rnd.nextInt(50));
+            list.add(rnd.nextInt(50));
         }
     }
 
@@ -155,8 +172,18 @@ public class main3 {
         for(String line: lines){
           //  System.out.println(line);
             Integer val = Integer.valueOf(line);
-            list.addLast(val);
+            list.add(val);
         }
 
+    }
+
+    public static void WriteFile(String path, MyLinkedList<Integer> list) throws IOException {
+
+        List<String> lines = new ArrayList<>();
+        ListIterator<Integer> iterator = list.listIterator(0);
+        while (iterator.hasNext()){
+            lines.add(iterator.next().toString());
+        }
+        Files.write(Paths.get(path),lines);
     }
 }
