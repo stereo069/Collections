@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 public class MyLinkedListTest {
 
     private MyLinkedList<Integer> list;
-    private Integer []testArray = {10,21,221,43,0,42};
+    private Integer []testArray = {99,88,77,66,55,44};
     private Integer size = 6;
 
     @Before
@@ -209,7 +209,11 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void clear() throws Exception {
+    public void sort() throws Exception {
+
+        list.sort();
+        assertEquals("First",list.getFirst(),testArray[size-1]);
+        assertEquals("Last",list.getLast(),testArray[0]);
 
     }
 

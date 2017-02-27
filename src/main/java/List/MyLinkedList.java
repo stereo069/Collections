@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 import Interface.IMyCollection;
 
 
-public class MyLinkedList<E> implements IMyLinkedList<E>, IMyCollection<E> {
+public class  MyLinkedList<E extends Comparable<E>> implements IMyLinkedList<E>, IMyCollection<E>{
 
     private MyListNode<E> head;
     private MyListNode<E> tail;
@@ -132,6 +132,36 @@ public class MyLinkedList<E> implements IMyLinkedList<E>, IMyCollection<E> {
         tail = tail.getPrevNode();
         tail.setNextNode(null);
 
+    }
+
+    @Override
+    public void sort() {
+
+        if(size <2){
+            return;
+        }
+
+        for(int i=0;i<size-1;i++){
+            MyListNode<E> one = head;
+            MyListNode<E> two = one.getNextNode();
+            for(int j=0;j<(size-1)-i;j++){
+                    E o = one.getValue();
+                    E t = two.getValue();
+                    if(o.compareTo(t)>0){
+                        swap(one,two);
+                    }
+                one = one.getNextNode();
+                two = two.getNextNode();
+            }
+        }
+
+
+    }
+
+    private void swap(MyListNode<E> eO, MyListNode<E> eT){
+        E buffer = eO.getValue();
+        eO.setValue(eT.getValue());
+        eT.setValue(buffer);
     }
 
     @Override
