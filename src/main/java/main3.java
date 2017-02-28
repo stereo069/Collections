@@ -18,6 +18,22 @@ public class main3 {
     public static void main(String[] args) throws IOException {
 
         MyLinkedList<Integer> list = new MyLinkedList<>();
+        MyLinkedList<Integer> list2 = new MyLinkedList<>();
+
+        //RandomAdd(list);
+        //RandomAdd(list2);
+
+        ReadFile("C:/List/1.txt",list);
+        ReadFile("C:/List/2.txt",list2);
+
+        list.sort();
+        list2.sort();
+        MyLinkedList<Integer> list3 = xor(list.listIterator(0),list2.listIterator(0));
+        printList(list);
+        System.out.println("----------------------------");
+        printList(list2);
+        System.out.println("----------------------------");
+        printList(list3);
 
         Scanner in = new Scanner(System.in);
         int type;
@@ -186,4 +202,56 @@ public class main3 {
         }
         Files.write(Paths.get(path),lines);
     }
+
+    public static MyLinkedList<Integer> xor(ListIterator<Integer> one,ListIterator<Integer> two){
+
+        MyLinkedList<Integer> xorList = new MyLinkedList<Integer>();
+
+
+        Integer a=0;
+        Integer b=0;
+
+        if(one.hasNext()){
+            a= one.next();
+        }
+        while (two.hasNext()) {
+            b=two.next();
+            while (a < b) {
+                if (one.hasNext()) {
+                    xorList.add(a);
+                    a = one.next();
+
+                }else{
+                    break;
+                }
+            }
+            if (a == b) {
+                if (one.hasNext()) {
+                        a = one.next();
+
+                } else {
+                    break;
+                }
+
+            }else{
+                xorList.add(b);
+                if(one.hasNext()){
+                    a= one.hasNext() ?  one.next() : a;
+                }else {
+                    xorList.add(a);
+                    break;
+                }
+
+            }
+        }
+        while(one.hasNext()){
+            xorList.add(one.next());
+        }
+        while(two.hasNext()){
+            xorList.add(two.next());
+        }
+        xorList.sort();
+        return xorList;
+    }
+
 }
