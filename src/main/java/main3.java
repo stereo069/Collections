@@ -18,22 +18,6 @@ public class main3 {
     public static void main(String[] args) throws IOException {
 
         MyLinkedList<Integer> list = new MyLinkedList<>();
-        MyLinkedList<Integer> list2 = new MyLinkedList<>();
-
-        //RandomAdd(list);
-        //RandomAdd(list2);
-
-        ReadFile("C:/List/1.txt",list);
-        ReadFile("C:/List/2.txt",list2);
-
-        list.sort();
-        list2.sort();
-        MyLinkedList<Integer> list3 = xor(list.listIterator(0),list2.listIterator(0));
-        printList(list);
-        System.out.println("----------------------------");
-        printList(list2);
-        System.out.println("----------------------------");
-        printList(list3);
 
         Scanner in = new Scanner(System.in);
         int type;
@@ -132,8 +116,12 @@ public class main3 {
                 }
                 case 12: {
                 System.out.println("        Write to file ");
-                WriteFile("C:/List/1.txt",list);
+                WriteFile("/home/den/Documents/List/1.txt",list);
             }
+                case 13: {
+                    System.out.println("        xor ");
+                    xorPrint();
+                }
                 break;
             }
         }while (type != 0);
@@ -155,6 +143,7 @@ public class main3 {
         System.out.println("10- sort");
         System.out.println("11- readFile");
         System.out.println("12- writeFile");
+        System.out.println("13- xor");
         System.out.println("0 - exit");
         int  n ;
         n = in.nextInt();
@@ -201,6 +190,26 @@ public class main3 {
             lines.add(iterator.next().toString());
         }
         Files.write(Paths.get(path),lines);
+    }
+
+    public static void xorPrint() throws IOException {
+        MyLinkedList<Integer> list = new MyLinkedList<>();
+        MyLinkedList<Integer> list2 = new MyLinkedList<>();
+
+        //RandomAdd(list);
+        //RandomAdd(list2);
+
+        ReadFile("/home/den/Documents/List/1.txt",list);
+        ReadFile("/home/den/Documents/List/2.txt",list2);
+
+        list.sort();
+        list2.sort();
+        MyLinkedList<Integer> list3 = xor(list.listIterator(0),list2.listIterator(0));
+        printList(list);
+        System.out.println("----------------------------");
+        printList(list2);
+        System.out.println("----------------------------");
+        printList(list3);
     }
 
     public static MyLinkedList<Integer> xor(ListIterator<Integer> one,ListIterator<Integer> two){
