@@ -186,18 +186,17 @@ public class  MyLinkedList<E extends Comparable<E>> implements IMyLinkedList<E>,
         if(size <2){
             return;
         }
-
+        int j = 0;
         for(int i=0;i<size-1;i++){
             MyListNode<E> one = getNode(i);
             MyListNode<E> two = one.getNextNode();
-            for(int j=i;j>=0;j--){
-                E o = one.getValue();
-                E t = two.getValue();
-                if(o.compareTo(t)>0){
-                    swap(one,two);
-                }
+            for(j=i;j>=1 && one.getValue().compareTo(two.getValue())>0;j--){
                 one = one.getPrevNode();
-                two = two.getPrevNode();
+                //two = two.getPrevNode();
+            }
+            if(one != null) {
+                add(j, two.getValue());
+                unlink(two);
             }
         }
 
