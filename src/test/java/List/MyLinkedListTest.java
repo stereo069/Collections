@@ -223,7 +223,7 @@ public class MyLinkedListTest {
     @Test
     public void sort() throws Exception {
 
-        list.sort();
+        list.sort2();
         assertEquals("First",list.getFirst(),testArray[size-1]);
         assertEquals("Last",list.getLast(),testArray[0]);
 

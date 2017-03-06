@@ -171,6 +171,39 @@ public class  MyLinkedList<E extends Comparable<E>> implements IMyLinkedList<E>,
 
     }
 
+    private MyListNode<E> getNode(int index){
+        checkElementIndex(index);
+
+        MyListNode<E> node = head;
+        for(int i=0;i<index;i++){
+            node = node.getNextNode();
+        }
+        return node;
+    }
+
+    public void sort2() {
+
+        if(size <2){
+            return;
+        }
+
+        for(int i=0;i<size-1;i++){
+            MyListNode<E> one = getNode(i);
+            MyListNode<E> two = one.getNextNode();
+            for(int j=i;j>=0;j--){
+                E o = one.getValue();
+                E t = two.getValue();
+                if(o.compareTo(t)>0){
+                    swap(one,two);
+                }
+                one = one.getPrevNode();
+                two = two.getPrevNode();
+            }
+        }
+
+
+    }
+
     private void swap(MyListNode<E> eO, MyListNode<E> eT){
         E buffer = eO.getValue();
         eO.setValue(eT.getValue());
@@ -324,20 +357,27 @@ public class  MyLinkedList<E extends Comparable<E>> implements IMyLinkedList<E>,
         private int nextIndex;
         private int expectedmodCount = modCount;
 
-        MyLinkedListIterator(int index){
+        MyLinkedListIterator(int index) {
 
             checkBoundsInclusive(index);
 
-            if(index < (size>>1)){
+            if (index < (size >> 1)) {
                 next = head;
-                for(nextIndex = 0;nextIndex<index;nextIndex++){
+                for (nextIndex = 0; nextIndex < index; nextIndex++) {
                     next = next.getNextNode();
                 }
-            }else
-            {
-                next = tail;
-                for(nextIndex = size;nextIndex>index;nextIndex--){
-                    next = next.getPrevNode();
+            } else {
+                if (index == size - 1) {
+                    next = null;
+                    nextIndex = size;
+
+                } else{
+                    next = tail;
+
+                    for (nextIndex = size - 1; nextIndex > index + 1; nextIndex--) {
+                        next = next.getPrevNode();
+                    }
+
                 }
             }
 

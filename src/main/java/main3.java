@@ -113,14 +113,21 @@ public class main3 {
                 case 11: {
                     System.out.println("        Read file ");
                     ReadFile("C:/List/1.txt",list);
+                    break;
                 }
                 case 12: {
                 System.out.println("        Write to file ");
                 WriteFile("/home/den/Documents/List/1.txt",list);
+                    break;
             }
                 case 13: {
                     System.out.println("        xor ");
                     xorPrint();
+                }
+                break;
+                case 14: {
+
+                    prinReversedtList(list);
                 }
                 break;
             }
@@ -144,6 +151,7 @@ public class main3 {
         System.out.println("11- readFile");
         System.out.println("12- writeFile");
         System.out.println("13- xor");
+        System.out.println("14- reversed print");
         System.out.println("0 - exit");
         int  n ;
         n = in.nextInt();
@@ -158,6 +166,17 @@ public class main3 {
         }
         while(iterator.hasNext()){
             System.out.println("elem List  ------- "+iterator.next());
+        }
+    }
+
+    public static void prinReversedtList(MyLinkedList<Integer> list){
+        if(list.isEmpty()){
+            System.out.println(" ----- List  is empty");
+            return;
+        }
+        ListIterator<Integer> iterator = list.listIterator(list.size()-1);
+        while(iterator.hasPrevious()){
+            System.out.println("elem List  ------- "+iterator.previous());
         }
     }
 
