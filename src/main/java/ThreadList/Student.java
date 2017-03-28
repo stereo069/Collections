@@ -6,11 +6,11 @@ package ThreadList;
 public class Student {
 
     public String name;
-    public Integer age;
-    public Student nextName,prevName,nextAge,prevAge;
+    public Integer phone;
+    public Student nextName,prevName,nextPhone,prevPhone;
 
-    public Student(String name, int age){
+    public Student(String name, int phone){
         this.name = name;
-        this.age = age;
+        this.phone = phone;
     }
 }
