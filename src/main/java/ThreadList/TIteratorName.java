@@ -20,7 +20,7 @@ public class TIteratorName {
     }
 
     public boolean hasPrev(){
-        return index>0;
+        return index>1;
     }
 
     public Student next(){
@@ -30,7 +30,7 @@ public class TIteratorName {
         return current;
     }
 
-    public Student prev(){
+    public student prev(){
         if(!hasPrev()) return null;
         index--;
         current = current.prevName;

@@ -20,10 +20,10 @@ public class TIteratorPhone {
     }
 
     public boolean hasPrev(){
-        return index>0;
+        return index>1;
     }
 
-    public Student next(){
+    public student next(){
         if(!hasNext())  return null;
         index++;
         current = current.nextPhone;

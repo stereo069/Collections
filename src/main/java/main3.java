@@ -154,6 +154,7 @@ public class main3 {
     public static void printList(MyLinkedList<Integer> list){
         ListIterator<Integer> iterator = list.listIterator(0);
         if(!iterator.hasNext()){
+
             System.out.println(" ----- List  is empty");
         }
         while(iterator.hasNext()){
@@ -174,6 +175,7 @@ public class main3 {
     public static void ReadFile(String path, MyLinkedList<Integer> list) throws IOException {
 
         List<String> lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
+
         for(String line: lines){
           //  System.out.println(line);
             Integer val = Integer.valueOf(line);

@@ -3,14 +3,17 @@ package ThreadList;
 /**
  * Created by diasonov on 27.03.2017.
  */
-public class Student {
+public class Student extends student {
 
-    public String name;
-    public Integer phone;
+
     public Student nextName,prevName,nextPhone,prevPhone;
 
-    public Student(String name, int phone){
-        this.name = name;
-        this.phone = phone;
+
+    public Student(String name, int phone) {
+        super(name, phone);
+    }
+
+    public Student(student student) {
+        super(student.name, student.phone);
     }
 }
